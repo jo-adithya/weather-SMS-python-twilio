@@ -13,4 +13,9 @@ parameter = {
 
 response = requests.get(url, params=parameter)
 response.raise_for_status()
-print(response.json())
+weather_data = response.json()['hourly'][:13]
+weather_data = filter(lambda x: x['weather'][0]['id'] < 700, weather_data)
+
+for _ in weather_data:
+    print('it is going to rain')
+    break
